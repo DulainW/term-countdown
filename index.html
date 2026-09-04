@@ -11,238 +11,626 @@
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 
     <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 20px;
-            background: #f5f5f5;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+            min-height: 100vh;
         }
 
-        h1 {
-            text-align: center;
+        /* HEADER */
+
+        header {
+            background: #172033;
+            color: white;
+            padding: 22px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .upload-box {
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header-label {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+
+        /* MAIN */
+
+        main {
+            width: 86%;
+            max-width: 1100px;
+            margin: 45px auto;
+        }
+
+
+        /* INTRO */
+
+        .intro {
+            margin-bottom: 30px;
+        }
+
+        .intro h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            letter-spacing: -1.5px;
+        }
+
+        .intro p {
+            color: #667085;
+            font-size: 17px;
+        }
+
+
+        /* UPLOAD */
+
+        .upload-card {
             background: white;
+            border-radius: 18px;
             padding: 25px;
-            border-radius: 12px;
-            text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+            border: 1px solid #e5e9f0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
         }
 
-        select,
-        input {
-            margin: 10px;
-            padding: 10px;
+        .upload-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 6px;
         }
+
+        .upload-description {
+            color: #667085;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px dashed #cdd5df;
+            border-radius: 12px;
+            background: #fafbfc;
+            cursor: pointer;
+        }
+
+
+        /* SELECTOR */
+
+        .selector-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .selector-area label {
+            font-weight: 700;
+        }
+
+        select {
+            padding: 12px 18px;
+            border: 1px solid #d5dbe5;
+            border-radius: 10px;
+            background: white;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+
+        /* STATUS */
+
+        #status {
+            color: #667085;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+
+        /* NEXT EVENT */
 
         .next-event {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 25px;
+            background: #172033;
+            color: white;
+            border-radius: 22px;
+            padding: 40px;
+            margin-bottom: 35px;
             text-align: center;
+            box-shadow: 0 15px 35px rgba(23, 32, 51, 0.18);
+        }
+
+        .next-label {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 12px;
+            opacity: 0.65;
+            margin-bottom: 15px;
         }
 
         .next-event h2 {
-            margin-top: 0;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .next-date {
+            opacity: 0.75;
+            font-size: 16px;
+            margin-bottom: 25px;
         }
 
         .countdown {
-            font-size: 32px;
-            font-weight: bold;
-            margin: 15px 0;
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -1px;
         }
+
+
+        /* UPCOMING */
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .section-title h2 {
+            font-size: 25px;
+        }
+
+        .event-count {
+            font-size: 13px;
+            color: #667085;
+        }
+
+
+        /* EVENT CARD */
 
         .event {
             background: white;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
+            border: 1px solid #e5e9f0;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .event-date {
-            font-weight: bold;
+        .event:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
         }
 
-        #status {
+        .event-date-box {
+            min-width: 85px;
             text-align: center;
-            margin: 15px;
+            border-right: 1px solid #e5e9f0;
+            padding-right: 20px;
         }
+
+        .event-day {
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .event-month {
+            text-transform: uppercase;
+            font-size: 12px;
+            color: #667085;
+            letter-spacing: 1px;
+        }
+
+        .event-info {
+            flex: 1;
+        }
+
+        .event-name {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .event-full-date {
+            color: #667085;
+            font-size: 13px;
+        }
+
+
+        /* EMPTY STATE */
+
+        .empty {
+            background: white;
+            border-radius: 15px;
+            padding: 35px;
+            text-align: center;
+            color: #667085;
+            border: 1px solid #e5e9f0;
+        }
+
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            color: #98a2b3;
+            font-size: 13px;
+            padding: 35px 20px;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 650px) {
+
+            header {
+                padding: 20px;
+            }
+
+            .header-label {
+                display: none;
+            }
+
+            main {
+                width: 92%;
+                margin: 30px auto;
+            }
+
+            .intro h1 {
+                font-size: 32px;
+            }
+
+            .next-event {
+                padding: 30px 20px;
+            }
+
+            .next-event h2 {
+                font-size: 24px;
+            }
+
+            .countdown {
+                font-size: 30px;
+            }
+
+            .selector-area {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            select {
+                width: 100%;
+            }
+
+            .event {
+                gap: 12px;
+            }
+
+            .event-date-box {
+                min-width: 65px;
+                padding-right: 12px;
+            }
+
+            .event-day {
+                font-size: 23px;
+            }
+
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
-    <h1>Term Countdown</h1>
 
-    <div class="upload-box">
+    <!-- HEADER -->
 
-        <p>
-            Upload your school calendar to see upcoming events and countdowns.
-        </p>
+    <header>
 
-        <input type="file" id="fileInput" accept=".xlsx,.xls">
+        <div class="logo">
+            Term Countdown
+        </div>
 
-        <br>
+        <div class="header-label">
+            School Calendar
+        </div>
 
-        <label for="sheetSelect">Calendar:</label>
+    </header>
 
-        <select id="sheetSelect" disabled>
-            <option>Select a calendar</option>
-        </select>
 
-    </div>
+    <!-- MAIN -->
 
-    <div id="status">
-        No calendar uploaded yet.
-    </div>
+    <main>
 
-    <div id="nextEvent"></div>
 
-    <h2>Upcoming Events</h2>
+        <div class="intro">
 
-    <div id="events"></div>
+            <h1>Stay ahead of your term.</h1>
+
+            <p>
+                See your upcoming school events and exactly how long you have until they arrive.
+            </p>
+
+        </div>
+
+
+        <!-- UPLOAD -->
+
+        <div class="upload-card">
+
+            <div class="upload-title">
+                Upload your calendar
+            </div>
+
+            <div class="upload-description">
+                Select your Excel school calendar to load your events.
+            </div>
+
+            <input
+                type="file"
+                id="fileInput"
+                accept=".xlsx,.xls"
+            >
+
+        </div>
+
+
+        <!-- CALENDAR SELECTOR -->
+
+        <div class="selector-area">
+
+            <label for="sheetSelect">
+                Calendar:
+            </label>
+
+            <select id="sheetSelect" disabled>
+
+                <option>
+                    Upload a calendar first
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div id="status">
+            No calendar uploaded yet.
+        </div>
+
+
+        <!-- NEXT EVENT -->
+
+        <div id="nextEvent"></div>
+
+
+        <!-- UPCOMING EVENTS -->
+
+        <div class="section-title">
+
+            <h2>
+                Upcoming Events
+            </h2>
+
+            <div
+                class="event-count"
+                id="eventCount">
+            </div>
+
+        </div>
+
+
+        <div id="events"></div>
+
+
+    </main>
+
+
+    <footer>
+
+        Term Countdown
+
+    </footer>
+
 
 
     <script>
 
+
         let allEvents = [];
+
         let selectedEvent = null;
 
 
-        // Read the uploaded Excel file
-        document.getElementById("fileInput").addEventListener("change", function(event) {
 
-            const file = event.target.files[0];
+        /* =========================================
+           UPLOAD EXCEL FILE
+        ========================================= */
 
-            if (!file) {
-                return;
-            }
+        document
+            .getElementById("fileInput")
+            .addEventListener("change", function(event) {
 
-            const reader = new FileReader();
+                const file = event.target.files[0];
 
-            reader.onload = function(e) {
-
-                try {
-
-                    const data = new Uint8Array(e.target.result);
-
-                    const workbook = XLSX.read(data, {
-                        type: "array",
-                        cellDates: true
-                    });
-
-                    const sheetSelect = document.getElementById("sheetSelect");
-
-                    sheetSelect.innerHTML = "";
-
-                    // Only show the 2026 Primary and Secondary calendars
-                    const usefulSheets = workbook.SheetNames.filter(sheetName =>
-                        sheetName === "2026-Primary" ||
-                        sheetName === "2026-Secondary"
-                    );
-
-                    if (usefulSheets.length === 0) {
-
-                        document.getElementById("status").textContent =
-                            "Could not find the 2026 Primary or Secondary calendar.";
-
-                        return;
-                    }
-
-                    usefulSheets.forEach(sheetName => {
-
-                        const option = document.createElement("option");
-
-                        option.value = sheetName;
-                        option.textContent =
-                            sheetName === "2026-Primary"
-                                ? "2026 - Primary"
-                                : "2026 - Secondary";
-
-                        sheetSelect.appendChild(option);
-
-                    });
-
-                    sheetSelect.disabled = false;
-
-                    // Load the first available calendar
-                    loadCalendar(workbook, usefulSheets[0]);
-
-                    // Change calendar when dropdown changes
-                    sheetSelect.onchange = function() {
-                        loadCalendar(workbook, this.value);
-                    };
-
-                } catch (error) {
-
-                    console.error(error);
-
-                    document.getElementById("status").textContent =
-                        "There was a problem reading the Excel file.";
-
+                if (!file) {
+                    return;
                 }
 
-            };
 
-            reader.readAsArrayBuffer(file);
-
-        });
+                const reader = new FileReader();
 
 
-        // Extract events from the calendar
+                reader.onload = function(e) {
+
+                    try {
+
+                        const data =
+                            new Uint8Array(e.target.result);
+
+
+                        const workbook =
+                            XLSX.read(data, {
+                                type: "array",
+                                cellDates: true
+                            });
+
+
+                        const sheetSelect =
+                            document.getElementById("sheetSelect");
+
+
+                        sheetSelect.innerHTML = "";
+
+
+                        const usefulSheets =
+                            workbook.SheetNames.filter(sheetName =>
+                                sheetName === "2026-Primary" ||
+                                sheetName === "2026-Secondary"
+                            );
+
+
+                        if (usefulSheets.length === 0) {
+
+                            document.getElementById("status").textContent =
+                                "Could not find the 2026 Primary or Secondary calendar.";
+
+                            return;
+                        }
+
+
+                        usefulSheets.forEach(sheetName => {
+
+                            const option =
+                                document.createElement("option");
+
+
+                            option.value = sheetName;
+
+
+                            option.textContent =
+                                sheetName === "2026-Primary"
+                                    ? "2026 - Primary"
+                                    : "2026 - Secondary";
+
+
+                            sheetSelect.appendChild(option);
+
+                        });
+
+
+                        sheetSelect.disabled = false;
+
+
+                        loadCalendar(
+                            workbook,
+                            usefulSheets[0]
+                        );
+
+
+                        sheetSelect.onchange = function() {
+
+                            loadCalendar(
+                                workbook,
+                                this.value
+                            );
+
+                        };
+
+
+                    }
+
+                    catch (error) {
+
+                        console.error(error);
+
+                        document.getElementById("status").textContent =
+                            "There was a problem reading the Excel file.";
+
+                    }
+
+                };
+
+
+                reader.readAsArrayBuffer(file);
+
+            });
+
+
+
+        /* =========================================
+           LOAD CALENDAR
+        ========================================= */
+
         function loadCalendar(workbook, sheetName) {
 
-            const worksheet = workbook.Sheets[sheetName];
 
-            const range = XLSX.utils.decode_range(worksheet["!ref"]);
+            const worksheet =
+                workbook.Sheets[sheetName];
+
+
+            const range =
+                XLSX.utils.decode_range(
+                    worksheet["!ref"]
+                );
+
 
             allEvents = [];
 
-            /*
-                Your spreadsheet is arranged like this:
 
-                Month 1:
-                Day | Date | Event
-
-                Month 2:
-                Day | Date | Event
-
-                Month 3:
-                Day | Date | Event
-
-                etc.
-            */
-
-            // 12 months × 3 columns
             for (let month = 0; month < 12; month++) {
 
-                const dayColumn = month * 3;
-                const dateColumn = dayColumn + 1;
-                const eventColumn = dayColumn + 2;
 
-                // Start at row 3 because rows 1 and 2 contain headings
-                for (let row = 2; row <= range.e.r; row++) {
+                const dayColumn =
+                    month * 3;
 
-                    const dayCell =
-                        worksheet[XLSX.utils.encode_cell({
-                            r: row,
-                            c: dayColumn
-                        })];
+
+                const dateColumn =
+                    dayColumn + 1;
+
+
+                const eventColumn =
+                    dayColumn + 2;
+
+
+                for (
+                    let row = 2;
+                    row <= range.e.r;
+                    row++
+                ) {
+
 
                     const dateCell =
-                        worksheet[XLSX.utils.encode_cell({
-                            r: row,
-                            c: dateColumn
-                        })];
+                        worksheet[
+                            XLSX.utils.encode_cell({
+                                r: row,
+                                c: dateColumn
+                            })
+                        ];
+
 
                     const eventCell =
-                        worksheet[XLSX.utils.encode_cell({
-                            r: row,
-                            c: eventColumn
-                        })];
+                        worksheet[
+                            XLSX.utils.encode_cell({
+                                r: row,
+                                c: eventColumn
+                            })
+                        ];
 
 
                     if (!dateCell || !dateCell.v) {
@@ -250,7 +638,9 @@
                     }
 
 
-                    const dayNumber = Number(dateCell.v);
+                    const dayNumber =
+                        Number(dateCell.v);
+
 
                     if (
                         isNaN(dayNumber) ||
@@ -263,27 +653,37 @@
 
                     let eventText = "";
 
-                    if (eventCell && eventCell.v) {
-                        eventText = String(eventCell.v).trim();
+
+                    if (
+                        eventCell &&
+                        eventCell.v
+                    ) {
+
+                        eventText =
+                            String(eventCell.v).trim();
+
                     }
 
 
-                    // Ignore days without events
                     if (!eventText) {
                         continue;
                     }
 
 
-                    const date = new Date(
-                        2026,
-                        month,
-                        dayNumber
-                    );
+                    const date =
+                        new Date(
+                            2026,
+                            month,
+                            dayNumber
+                        );
 
 
                     allEvents.push({
+
                         name: eventText,
+
                         date: date
+
                     });
 
                 }
@@ -291,8 +691,10 @@
             }
 
 
-            // Sort events by date
-            allEvents.sort((a, b) => a.date - b.date);
+            allEvents.sort(
+                (a, b) =>
+                    a.date - b.date
+            );
 
 
             document.getElementById("status").textContent =
@@ -304,88 +706,187 @@
         }
 
 
-        // Find upcoming events
+
+        /* =========================================
+           DISPLAY EVENTS
+        ========================================= */
+
         function displayEvents() {
 
-            const now = new Date();
 
-            const upcomingEvents = allEvents.filter(event => {
-                return event.date >= new Date(
+            const now =
+                new Date();
+
+
+            const today =
+                new Date(
                     now.getFullYear(),
                     now.getMonth(),
                     now.getDate()
                 );
-            });
+
+
+            const upcomingEvents =
+                allEvents.filter(event =>
+                    event.date >= today
+                );
 
 
             const nextEventBox =
                 document.getElementById("nextEvent");
 
+
             const eventsBox =
                 document.getElementById("events");
+
+
+            const eventCount =
+                document.getElementById("eventCount");
 
 
             eventsBox.innerHTML = "";
 
 
+            eventCount.textContent =
+                `${upcomingEvents.length} upcoming`;
+
+
+
             if (upcomingEvents.length === 0) {
 
+
                 nextEventBox.innerHTML = `
+
                     <div class="next-event">
-                        <h2>No upcoming events</h2>
+
+                        <div class="next-label">
+                            Schedule complete
+                        </div>
+
+                        <h2>
+                            No upcoming events
+                        </h2>
+
                     </div>
+
                 `;
 
+
+                eventsBox.innerHTML = `
+
+                    <div class="empty">
+
+                        There are no upcoming events in this calendar.
+
+                    </div>
+
+                `;
+
+
                 return;
+
             }
 
 
-            selectedEvent = upcomingEvents[0];
+
+            selectedEvent =
+                upcomingEvents[0];
 
 
-            // Next event
+
+            /* NEXT EVENT CARD */
+
             nextEventBox.innerHTML = `
+
                 <div class="next-event">
 
-                    <h2>Next Event</h2>
+                    <div class="next-label">
+                        Next Event
+                    </div>
 
-                    <h3>${selectedEvent.name}</h3>
+                    <h2>
+                        ${selectedEvent.name}
+                    </h2>
 
-                    <p>
+                    <div class="next-date">
                         ${formatDate(selectedEvent.date)}
-                    </p>
+                    </div>
 
-                    <div class="countdown" id="countdown">
+                    <div
+                        class="countdown"
+                        id="countdown"
+                    >
                         Calculating...
                     </div>
 
                 </div>
+
             `;
 
 
-            // Display upcoming events
-            upcomingEvents.slice(0, 20).forEach(event => {
 
-                const eventElement =
-                    document.createElement("div");
+            /* EVENT LIST */
 
-                eventElement.className = "event";
+            upcomingEvents
+                .slice(0, 20)
+                .forEach(event => {
 
-                eventElement.innerHTML = `
 
-                    <div class="event-date">
-                        ${formatDate(event.date)}
-                    </div>
+                    const eventElement =
+                        document.createElement("div");
 
-                    <div>
-                        ${event.name.replace(/\n/g, "<br>")}
-                    </div>
 
-                `;
+                    eventElement.className =
+                        "event";
 
-                eventsBox.appendChild(eventElement);
 
-            });
+                    const day =
+                        event.date.getDate();
+
+
+                    const month =
+                        event.date.toLocaleDateString(
+                            "en-GB",
+                            { month: "short" }
+                        );
+
+
+                    eventElement.innerHTML = `
+
+                        <div class="event-date-box">
+
+                            <div class="event-day">
+                                ${day}
+                            </div>
+
+                            <div class="event-month">
+                                ${month}
+                            </div>
+
+                        </div>
+
+
+                        <div class="event-info">
+
+                            <div class="event-name">
+                                ${event.name.replace(/\n/g, "<br>")}
+                            </div>
+
+                            <div class="event-full-date">
+                                ${formatDate(event.date)}
+                            </div>
+
+                        </div>
+
+                    `;
+
+
+                    eventsBox.appendChild(
+                        eventElement
+                    );
+
+                });
+
 
 
             updateCountdown();
@@ -393,34 +894,71 @@
         }
 
 
-        // Format dates
+
+        /* =========================================
+           DATE FORMAT
+        ========================================= */
+
         function formatDate(date) {
 
-            return date.toLocaleDateString("en-GB", {
-                day: "numeric",
-                month: "long",
-                year: "numeric"
-            });
+            return date.toLocaleDateString(
+                "en-GB",
+                {
+                    weekday: "long",
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                }
+            );
 
         }
 
 
-        // Countdown timer
+
+        /* =========================================
+           COUNTDOWN
+        ========================================= */
+
         function updateCountdown() {
+
 
             if (!selectedEvent) {
                 return;
             }
 
 
-            const now = new Date();
+            const now =
+                new Date();
+
+
+            const eventDate =
+                new Date(
+                    selectedEvent.date
+                );
+
+
+            /*
+                Set event time to the end of
+                the event day so "Today" works
+                correctly.
+            */
+
+            eventDate.setHours(
+                23,
+                59,
+                59,
+                999
+            );
+
 
             const difference =
-                selectedEvent.date - now;
+                eventDate - now;
 
 
             const countdown =
-                document.getElementById("countdown");
+                document.getElementById(
+                    "countdown"
+                );
 
 
             if (!countdown) {
@@ -428,35 +966,43 @@
             }
 
 
+
             if (difference <= 0) {
 
-                countdown.textContent = "Today";
+                countdown.textContent =
+                    "Today";
 
                 return;
+
             }
+
 
 
             const days =
                 Math.floor(
-                    difference / (1000 * 60 * 60 * 24)
+                    difference /
+                    (1000 * 60 * 60 * 24)
                 );
 
 
             const hours =
                 Math.floor(
-                    (difference / (1000 * 60 * 60)) % 24
+                    (difference /
+                    (1000 * 60 * 60)) % 24
                 );
 
 
             const minutes =
                 Math.floor(
-                    (difference / (1000 * 60)) % 60
+                    (difference /
+                    (1000 * 60)) % 60
                 );
 
 
             const seconds =
                 Math.floor(
-                    (difference / 1000) % 60
+                    (difference /
+                    1000) % 60
                 );
 
 
@@ -466,10 +1012,19 @@
         }
 
 
-        // Update countdown every second
-        setInterval(updateCountdown, 1000);
+
+        /* =========================================
+           UPDATE EVERY SECOND
+        ========================================= */
+
+        setInterval(
+            updateCountdown,
+            1000
+        );
+
 
     </script>
+
 
 </body>
 
